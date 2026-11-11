@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mini AI</title>
+  <link rel="stylesheet" href="popup.css" />
+</head>
+<body data-theme="graphite">
+  <div class="popup-shell">
+    <!-- 1. Верхняя панель -->
+    <header class="topbar">
+      <div class="brand">
+        <span class="brand-title">Mini AI</span>
+        <span class="brand-sep">·</span>
+        <span id="activeModelLabel" class="brand-sub">Gemini 3.8 Flash</span>
+      </div>
+      <button id="settingsToggleBtn" class="icon-btn" type="button" aria-label="Открыть настройки" title="Настройки">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="3"></circle>
+          <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9c.26.604.852.997 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+        </svg>
+      </button>
+    </header>
+
+    <!-- Основной экран запроса и ответа -->
+    <main id="mainView" class="main-view">
+      <!-- 2 & 3. Область ввода запроса и кнопки управления -->
+      <section class="composer-box">
+        <label for="promptInput" class="sr-only">Текст запроса к ИИ</label>
+        <textarea
+          id="promptInput"
+          rows="3"
+          placeholder="Введите вопрос… (Enter — отправить, Shift+Enter — строка)"
+        ></textarea>
+        <div class="composer-actions">
+          <button id="clearInputBtn" class="ghost-btn" type="button" title="Очистить поле">
+            Очистить
+          </button>
+          <div class="primary-actions">
+            <button id="stopBtn" class="stop-btn hidden" type="button">
+              Стоп
+            </button>
+            <button id="sendBtn" class="send-btn" type="button">
+              Отправить
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- 4 & 5. Область отображения ответа и кнопка копирования -->
+      <section class="response-section">
+        <div class="response-header">
+          <span id="statusText" class="status-label">Независимый запрос · Готов</span>
+          <button id="copyBtn" class="copy-btn" type="button" disabled>
+            Копировать
+          </button>
+        </div>
+        <div id="responseContainer" class="response-body">
+          <p class="empty-hint">Ответ появится здесь. Каждый запрос отправляется независимо без сохранения истории.</p>
+        </div>
+      </section>
+    </main>
+
+    <!-- Раздел настроек -->
+    <section id="settingsView" class="settings-view hidden" aria-label="Настройки Mini AI">
+      <div class="field-group">
+        <label for="modelSelect">Языковая модель</label>
+        <select id="modelSelect">
+          <option value="gemini-3.8-flash">Gemini 3.8 Flash (Быстрая)</option>
+          <option value="gemini-3.1-flash-lite">Gemini 3.1 Flash Lite (Мгновенная)</option>
+          <option value="deepseek-chat">DeepSeek V3 (Инженерный профиль)</option>
+        </select>
+      </div>
+
+      <div class="field-group">
+        <label for="themeSelect">Тема оформления</label>
+        <select id="themeSelect">
+          <option value="graphite">Графитовая тёмная</option>
+          <option value="onyx">Глубокий оникс</option>
+          <option value="light">Светлая бумага</option>
+        </select>
+      </div>
+
+      <div class="field-group">
+        <label for="temperatureInput">Температура генерации: <span id="tempValue">0.4</span></label>
+        <input id="temperatureInput" type="range" min="0" max="1" step="0.1" value="0.4" />
+      </div>
+
+      <div class="field-group">
+        <label for="systemPromptInput">Системная инструкция</label>
+        <textarea id="systemPromptInput" rows="3" placeholder="Краткая инструкция для модели..."></textarea>
+      </div>
+
+      <div class="settings-footer">
+        <button id="cancelSettingsBtn" class="ghost-btn" type="button">Отмена</button>
+        <button id="saveSettingsBtn" class="send-btn" type="button">Сохранить</button>
+      </div>
+    </section>
+  </div>
+  <script src="popup.js"></script>
+</body>
+</html>

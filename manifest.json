@@ -1,0 +1,16 @@
+{
+  "manifest_version": 3,
+  "name": "Mini AI — Компактный ИИ-помощник",
+  "version": "1.1.0",
+  "description": "Лёгкое расширение для мгновенных независимых ответов ИИ в компактном окне 360×400 px.",
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Mini AI — Быстрый запрос"
+  },
+  "permissions": [
+    "storage"
+  ],
+  "host_permissions": [
+    "https://*/*"
+  ]
+}
